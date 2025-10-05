@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎬 Movie Review & Rating Platform</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1b1b1b, #000);
+      color: #f5f5f5;
+    }
+    header {
+      background: linear-gradient(90deg, #111, #333);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.3rem;
+      color: #ffcc00;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 6px rgba(255, 204, 0, 0.3);
+    }
+    .container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+    .movie-card {
+      background: #1c1c1c;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0px 6px 15px rgba(0,0,0,0.7);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .movie-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 8px 20px rgba(255, 204, 0, 0.3);
+    }
+    .movie-title {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #ffcc00;
+      text-align: center;
+    }
+    .movie-poster {
+      width: 100%;
+      height: 500px; 
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: block;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    h2 {
+      color: #ffcc00;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      text-transform: uppercase;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+    .movie-desc {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      color: #ddd;
+      line-height: 1.6;
+      text-align: justify;
+    }
+    .rating {
+      margin: 10px 0;
+      text-align: center;
+    }
+    .stars span {
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: gray;
+      transition: color 0.2s ease;
+    }
+    .stars span.active {
+      color: gold;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      resize: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: #2a2a2a;
+      color: #fff;
+    }
+    button {
+      background: #ffcc00;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      display: block;
+      margin: 0 auto;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #e6b800;
+    }
+    .reviews {
+      margin-top: 15px;
+    }
+    .review {
+      background: #2a2a2a;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border-left: 4px solid #ffcc00;
+    }
+    .success-message {
+      text-align: center;
+      color: #00ff7f;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎬 Movie Review & Rating Platform</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="movie-card">
+      <div class="movie-title">THEY CALL HIM OG (2025)</div>
+      <img src="og.jpg" class="movie-poster" alt="OG Movie Poster">
+      <h2>About This Movie</h2>
+      <div class="movie-desc">
+        After a decade away, mob boss <strong>Ojas Gambheera</strong> returns to Mumbai’s underworld—ruthless, fearless, and unstoppable.
+        As old enemies rise and betrayal burns deep, OG fights to reclaim his throne in a violent world where power decides everything.
+        Packed with explosive action, intense drama, and a thunderous score, this film showcases Prabhas in his most powerful avatar yet.
+      </div>
+      <div class="rating"><strong>Rate this movie:</strong>
+        <div class="stars"><span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+      </div>
+      <textarea placeholder="Write your review..."></textarea>
+      <button onclick="submitReview(this)">Submit Review</button>
+      <div class="success-message">✅ Review submitted successfully!</div>
+      <div class="reviews"><h3>User Reviews:</h3><div class="review-list"></div></div>
+    </div>
+
+    <div class="movie-card">
+      <div class="movie-title">SAAHO (2019)</div>
+      <img src="sahoo.jpg" class="movie-poster" alt="Saaho Movie Poster">
+      <h2>About This Movie</h2>
+      <div class="movie-desc">
+        A stylish high-octane thriller directed by <strong>Sujeeth</strong>, *Saaho* stars <strong>Prabhas</strong> and <strong>Shraddha Kapoor</strong>.
+        It follows an undercover cop entangled in a massive conspiracy involving a global crime syndicate and billions of stolen money.
+        With jaw-dropping visuals, high-speed chases, and breathtaking stunts, *Saaho* is a cinematic spectacle made for adrenaline lovers.
+      </div>
+      <div class="rating"><strong>Rate this movie:</strong>
+        <div class="stars"><span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+      </div>
+      <textarea placeholder="Write your review..."></textarea>
+      <button onclick="submitReview(this)">Submit Review</button>
+      <div class="success-message">✅ Review submitted successfully!</div>
+      <div class="reviews"><h3>User Reviews:</h3><div class="review-list"></div></div>
+    </div>
+
+    <div class="movie-card">
+      <div class="movie-title">SALAAR (2023)</div>
+      <img src="salaar.jpg" class="movie-poster" alt="Salaar Movie Poster">
+      <h2>About This Movie</h2>
+      <div class="movie-desc">
+        Directed by <strong>Prashanth Neel</strong>, *Salaar* is a dark, gritty saga of friendship, vengeance, and power.
+        Set in the violent city of Khansaar, Prabhas delivers a raw and intense performance as Deva, a man of few words but limitless rage.
+        With heart-pounding action and stunning visuals, *Salaar* is a must-watch for fans of mass action and emotional storytelling.
+      </div>
+      <div class="rating"><strong>Rate this movie:</strong>
+        <div class="stars"><span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+      </div>
+      <textarea placeholder="Write your review..."></textarea>
+      <button onclick="submitReview(this)">Submit Review</button>
+      <div class="success-message">✅ Review submitted successfully!</div>
+      <div class="reviews"><h3>User Reviews:</h3><div class="review-list"></div></div>
+    </div>
+
+    <div class="movie-card">
+      <div class="movie-title">KALKI 2898 AD (2024)</div>
+      <img src="kalki-2898.jpg" class="movie-poster" alt="Kalki Movie Poster">
+      <h2>About This Movie</h2>
+      <div class="movie-desc">
+        A breathtaking sci-fi mythological epic directed by <strong>Nag Ashwin</strong>. Set in a futuristic dystopia, *Kalki 2898 AD*
+        reimagines the prophecy of Lord Vishnu’s final avatar who rises to end the darkness. Featuring <strong>Prabhas, Deepika Padukone, Amitabh Bachchan</strong>,
+        the film combines spirituality, advanced technology, and epic storytelling into one cinematic spectacle.
+      </div>
+      <div class="rating"><strong>Rate this movie:</strong>
+        <div class="stars"><span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+      </div>
+      <textarea placeholder="Write your review..."></textarea>
+      <button onclick="submitReview(this)">Submit Review</button>
+      <div class="success-message">✅ Review submitted successfully!</div>
+      <div class="reviews"><h3>User Reviews:</h3><div class="review-list"></div></div>
+    </div>
+
+    <div class="movie-card">
+      <div class="movie-title">RRR (2022)</div>
+      <img src="rrr.jpg" class="movie-poster" alt="RRR Movie Poster">
+      <h2>About This Movie</h2>
+      <div class="movie-desc">
+        Directed by <strong>S.S. Rajamouli</strong>, *RRR* is an epic action drama starring <strong>N.T. Rama Rao Jr.</strong> and <strong>Ram Charan</strong>.
+        Set in pre-independent India, it tells the fictionalized story of two legendary freedom fighters rising against British oppression.
+        Stunning action sequences, emotional depth, and unforgettable songs make this film a cinematic spectacle.
+      </div>
+      <div class="rating"><strong>Rate this movie:</strong>
+        <div class="stars"><span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+      </div>
+      <textarea placeholder="Write your review..."></textarea>
+      <button onclick="submitReview(this)">Submit Review</button>
+      <div class="success-message">✅ Review submitted successfully!</div>
+      <div class="reviews"><h3>User Reviews:</h3><div class="review-list"></div></div>
+    </div>
+
+    <div class="movie-card">
+      <div class="movie-title">DEVARA (2023)</div>
+      <img src="devara.jpg" class="movie-poster" alt="Devara Movie Poster">
+      <h2>About This Movie</h2>
+      <div class="movie-desc">
+        *Devara* stars <strong>Prabhas</strong> in a dual role as he navigates a world of loyalty, betrayal, and vengeance.
+        With powerful emotional storytelling, breathtaking cinematography, and high-octane action sequences, it offers a thrilling cinematic ride for all audiences.
+      </div>
+      <div class="rating"><strong>Rate this movie:</strong>
+        <div class="stars"><span data-star="1">★</span>
+          <span data-star="2">★</span>
+          <span data-star="3">★</span>
+          <span data-star="4">★</span>
+          <span data-star="5">★</span>
+        </div>
+      </div>
+      <textarea placeholder="Write your review..."></textarea>
+      <button onclick="submitReview(this)">Submit Review</button>
+      <div class="success-message">✅ Review submitted successfully!</div>
+      <div class="reviews"><h3>User Reviews:</h3><div class="review-list"></div></div>
+    </div>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('.stars span').forEach(star => {
+      star.addEventListener('click', function () {
+        let stars = this.parentNode.querySelectorAll('span');
+        stars.forEach(s => s.classList.remove('active'));
+        for (let i = 0; i < this.dataset.star; i++) {
+          stars[i].classList.add('active');
+        }
+      });
+    });
+
+    function submitReview(button) {
+      let card = button.closest('.movie-card');
+      let textarea = card.querySelector('textarea');
+      let reviewText = textarea.value.trim();
+      let successMsg = card.querySelector('.success-message');
+      if (reviewText === "") {
+        alert("⚠ Please write a review before submitting!");
+        return;
+      }
+      let reviewList = card.querySelector('.review-list');
+      let div = document.createElement('div');
+      div.classList.add('review');
+      div.textContent = reviewText;
+      reviewList.appendChild(div);
+      textarea.value = "";
+      successMsg.style.display = "block";
+      setTimeout(() => successMsg.style.display = "none", 2000);
+    }
+  </script>
+</body>
+</html>
